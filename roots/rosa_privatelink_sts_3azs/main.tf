@@ -96,8 +96,8 @@ resource "aws_route_table" "egress-public-rt" {
     depends_on   = [aws_internet_gateway.egress-igw]
         route {
         //route to rosa cluster
-        cidr_block = "10.0.0.0/16"
-        transit_gateway_id = aws_transit_gateway.egress-igw.id
+        cidr_block = aws_subnet.rosa-subnet-pub[each.value].cidr_block
+        transit_gateway_id = aws_ec2_transit_gateway.transit_gateway.id
     }
     route {
         //associated subnet can reach everywhere
